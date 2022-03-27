@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name "MCU_Microchip_SAMD_esp")(type "Legacy")(uri "${KIPRJMOD}/MCU_Microchip_SAMD.lib")(options "")(descr ""))
+  (lib (name "MCU_Module_esp")(type "Legacy")(uri "${KIPRJMOD}/MCU_Module.lib")(options "")(descr ""))
+)
