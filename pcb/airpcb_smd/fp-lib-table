@@ -1,3 +1,4 @@
 (fp_lib_table
   (lib (name "nodemcu")(type "KiCad")(uri "${KIPRJMOD}/nodemcu.pretty")(options "")(descr ""))
+  (lib (name "airpcb_smd")(type "KiCad")(uri "${KIPRJMOD}/airpcb_smd.pretty")(options "")(descr ""))
 )
