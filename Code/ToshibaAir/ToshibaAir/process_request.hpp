@@ -9,9 +9,7 @@ extern MySimpleTimer timerAC;
 extern MySimpleTimer timerTemperature;
 extern int temp_interval;
 
-extern const int DHTPin;
 //extern Adafruit_BMP085 bmp;
-extern uint8_t bmp_status;
 
 extern float dht_h[MAX_LOG_DATA];
 extern float dht_t[MAX_LOG_DATA];
@@ -23,17 +21,6 @@ extern float bmp_p[MAX_LOG_DATA];
 extern unsigned long timestamps[MAX_LOG_DATA];
 extern int temp_idx;
 extern float dht_h_current, dht_t_current, bmp_t_current, bmp_p_current;
-
-// Define NTP Client to get time
-extern WiFiUDP ntpUDP;
-extern const long utcOffsetInSeconds;
-extern int timeOffset;
-extern NTPClient timeClient;
-
-extern MySimpleTimer timerStatus;
-extern MySimpleTimer timerReadSerial;
-extern MySimpleTimer timerSaveFile;
-
 
 extern const char compile_date[];
 
@@ -332,11 +319,6 @@ void processRequest( uint8_t *  payload) {
     docTimeSeries["n"] = MAX_LOG_DATA;
 
     JsonArray arrt = docTimeSeries.createNestedArray("timestamp");
-    int i;
-    /*arrt.add(timestamps[temp_idx]);
-      for (i = (temp_idx + 1) % MAX_LOG_DATA; i != temp_idx; i = (i + 1) % MAX_LOG_DATA) {
-      arrt.add(timestamps[i]);
-      }*/
     serialize_array_ul_int(timestamps, arrt, temp_idx);
 
     JsonArray arr = docTimeSeries.createNestedArray("dht_t");
