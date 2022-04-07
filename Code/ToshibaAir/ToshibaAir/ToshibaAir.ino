@@ -4,7 +4,7 @@
 
 //#include <GDBStub.h>
 
-const char compile_date[] = __DATE__ " " __TIME__;
+
 
 air_status_t air_status;
 MySimpleTimer timerAC;
@@ -280,9 +280,8 @@ void handleStatus() {
 }
 
 void handleReadSerial() {
-  int val;
   if (timerReadSerial.isTime()) {
-    val = air_parse_serial(&air_status);
+    air_parse_serial(&air_status);
   }
 }
 
@@ -387,6 +386,7 @@ bool handleFileRead(
           server.streamFile(file, contentType); // Send it to the client
       file.close();                             // Close the file again
       Serial.println(String("\tSent file: ") + path);
+      Serial.println(String("\tSize: ") + sent);
       ret = true;
     }
   } else
@@ -455,6 +455,8 @@ void onWsEvent(uint8_t num, WStype_t type, uint8_t *payload, size_t length) {
     Serial.printf("[WS (%u)] Length %d Received: %s\n", num, length, payload);
     // pendingWSRequest
     processRequest(payload);
+  default:
+    break;
   }
 }
 

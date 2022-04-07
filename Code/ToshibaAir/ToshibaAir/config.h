@@ -1,4 +1,5 @@
 #pragma once
+#include <Arduino.h>
 
 
 #define MASTER  0x00
@@ -70,7 +71,7 @@
 
 
 
-#define MAX_LOG_DATA 72 //store up to 72 readings in a circular buffer
+static const uint8_t MAX_LOG_DATA = 72; //store up to 72 readings in a circular buffer
 
 // #define USE_BMP //if BMP sensor installed
 #define USE_DHT //in DHT sensor installed
@@ -86,6 +87,8 @@ const char *OTAName = "air";           // A name and a password for the OTA serv
 const char *OTAPassword = "esp8266";
 
 const char* mdnsName = "air"; // Domain name for the mDNS responder. Just connect to air.local
+const char compile_date[] = __DATE__ " " __TIME__;
+
 
 #ifndef LED_BUILTIN
   #define LED_BUILTIN 13 // ESP32 DOES NOT DEFINE LED_BUILTIN
@@ -98,10 +101,9 @@ const int DHTPin = D3;
 
 #define RESET_MODE_PIN D4  //button to enter into wifi configuration
 
-static const uint8_t kTimerUnit = 1000;
+static const uint16_t kTimerUnit = 1000;
 
 
-#include <Arduino.h>
 #include "helper.hpp"
 #include "LittleFS.h"
 #include "ntp_timer.hpp"

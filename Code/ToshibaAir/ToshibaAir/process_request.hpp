@@ -152,7 +152,6 @@ String air_to_json(air_status_t *air)
 
 String string_to_json(String t)
 {
-  int i;
   String str;
   String response;
   StaticJsonDocument<800> jsonDoc; //400 without indoor/outdoor data
