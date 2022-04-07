@@ -111,7 +111,7 @@ void loop() {
 }
 
 void startTemperature() {
-  timerTemperature.setUnit(1000);
+  timerTemperature.setUnit(kTimerUnit);
   timerTemperature.setInterval(temp_interval);
   timerTemperature.repeat();
   timerTemperature.start();
@@ -149,7 +149,7 @@ void startTemperature() {
 }
 
 void startStatus() {
-  timerStatus.setUnit(1000);    // 1000ms
+  timerStatus.setUnit(kTimerUnit);    // 1000ms
   timerStatus.setInterval(120); // update every XX s
   timerStatus.repeat();
   timerStatus.start();
@@ -158,7 +158,7 @@ void startStatus() {
 }
 
 void startReadSerial() {
-  timerReadSerial.setUnit(1000);
+  timerReadSerial.setUnit(kTimerUnit);
   timerReadSerial.setInterval(1);
   timerReadSerial.repeat();
   timerReadSerial.start();
@@ -166,7 +166,7 @@ void startReadSerial() {
 
 // save status every hour
 void startSaveFile() {
-  timerSaveFile.setUnit(1000);
+  timerSaveFile.setUnit(kTimerUnit);
   timerSaveFile.setInterval(60);
   timerSaveFile.repeat();
   timerSaveFile.start();
@@ -174,7 +174,7 @@ void startSaveFile() {
 
 // check power each minute
 // void startCheckPowerConsumption() {
-//   timerCheckPowerConsumption.setUnit(1000);
+//   timerCheckPowerConsumption.setUnit(kTimerUnit);
 //   timerCheckPowerConsumption.setInterval(60);
 //   timerCheckPowerConsumption.repeat();
 //   timerCheckPowerConsumption.start();

@@ -98,6 +98,9 @@ const int DHTPin = D3;
 
 #define RESET_MODE_PIN D4  //button to enter into wifi configuration
 
+static const uint8_t kTimerUnit = 1000;
+
+
 #include <Arduino.h>
 #include "helper.hpp"
 #include "LittleFS.h"
