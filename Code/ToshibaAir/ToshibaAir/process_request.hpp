@@ -1,3 +1,5 @@
+#pragma once
+
 #include "config.h"
 
 extern air_status_t air_status;

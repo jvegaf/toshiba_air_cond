@@ -10,6 +10,7 @@ Everyone is permitted to copy and distribute verbatim copies
 of this license document, but changing it is not allowed.
 
 */
+#pragma once
 
 #include "SoftwareSerial.h" //https://github.com/plerup/espsoftwareserial
 #include "toshiba_serial.h"

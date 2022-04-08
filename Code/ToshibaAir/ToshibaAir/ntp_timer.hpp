@@ -2,7 +2,6 @@
 #include <Arduino.h>
 #include <NTPClient.h>
 #include <WiFiUdp.h>
-#include "config.h"
 
 namespace NTPTimer {
 // Define NTP Client to get time
