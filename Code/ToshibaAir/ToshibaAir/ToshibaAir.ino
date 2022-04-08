@@ -5,8 +5,6 @@
 #include "ota.hpp"
 #include "sensors.hpp"
 
-
-#define SPIFFS LittleFS //dirty hack not to change names in the migration of SPIFFS to LittleFS
 #ifdef USE_ASYNC //for ESP32
   #include <ESPAsyncTCP.h_>
   #include <ESPAsyncWebServer.h_>
@@ -66,7 +64,7 @@ void handleFileUpload();
 void onWsEvent(uint8_t num, WStype_t type, uint8_t *payload, size_t length);
 int save_file(String name, String text);
 
-void startSPIFFS();
+void startLittleFS();
 void startWebSocket();
 void startMDNS();
 void startServer();
@@ -95,7 +93,7 @@ void setup() {
 
   OTA::initialize(); // Start the OTA service
 
-  startSPIFFS(); // Start the SPIFFS and list all contents
+  startLittleFS(); // Start the LittleFS and list all contents
 
   startWebSocket(); // Start a WebSocket server
 
@@ -309,11 +307,11 @@ void handleReadSerial() {
   }
 }
 
-void startSPIFFS() { // Start the SPIFFS and list all contents
-  SPIFFS.begin();    // Start the SPI Flash File System (SPIFFS)
-  Serial.println("SPIFFS started. Contents:");
+void startLittleFS() { // Start the LittleFS and list all contents
+  LittleFS.begin();    // Start the SPI Flash File System (LittleFS)
+  Serial.println("LittleFS started. Contents:");
   {
-    Dir dir = SPIFFS.openDir("/");
+    Dir dir = LittleFS.openDir("/");
     while (dir.next()) { // List the file system contents
       String fileName = dir.fileName();
       size_t fileSize = dir.fileSize();
@@ -382,7 +380,7 @@ void startServer() { // Start a HTTP server with a file read handler and an
 void handleNotFound() { // if the requested file or page doesn't exist, return a
                         // 404 not found error
   if (!handleFileRead(server.uri())) { // check if the file exists in the flash
-                                       // memory (SPIFFS), if so, send it
+                                       // memory (LittleFS), if so, send it
     server.send(404, "text/plain", "404: File Not Found: " + server.uri());
   }
 }
@@ -396,12 +394,12 @@ bool handleFileRead(String path) {
     path += "index.html"; // If a folder is requested, send the index file
   String contentType = getContentType(path); // Get the MIME type
   String pathWithGz = path + ".gz";
-  if (SPIFFS.exists(pathWithGz) ||
-      SPIFFS.exists(path)) {       // If the file exists, either as a compressed
+  if (LittleFS.exists(pathWithGz) ||
+      LittleFS.exists(path)) {       // If the file exists, either as a compressed
                                    // archive, or normal
-    if (SPIFFS.exists(pathWithGz)) // If there's a compressed version available
+    if (LittleFS.exists(pathWithGz)) // If there's a compressed version available
       path += ".gz";               // Use the compressed verion
-    File file = SPIFFS.open(path, "r"); // Open the file
+    File file = LittleFS.open(path, "r"); // Open the file
     if (!file) {
       Serial.println("file open failed" + path);
       ret = false;
@@ -421,7 +419,7 @@ bool handleFileRead(String path) {
   return ret;
 }
 
-void handleFileUpload() { // upload a new file to the SPIFFS
+void handleFileUpload() { // upload a new file to the LittleFS
   HTTPUpload &upload = server.upload();
   String path;
   if (upload.status == UPLOAD_FILE_START) {
@@ -434,14 +432,14 @@ void handleFileUpload() { // upload a new file to the SPIFFS
     if (!path.endsWith(".gz")) {
       String pathWithGz = path + ".gz"; // So if an uploaded file is not
                                         // compressed, the existing compressed
-      if (SPIFFS.exists(pathWithGz)) // version of that file must be deleted (if
+      if (LittleFS.exists(pathWithGz)) // version of that file must be deleted (if
                                      // it exists)
-        SPIFFS.remove(pathWithGz);
+        LittleFS.remove(pathWithGz);
     }
     Serial.print("handleFileUpload Name: ");
     Serial.println(path);
     fsUploadFile =
-        SPIFFS.open(path, "w"); // Open the file for writing in SPIFFS (create
+        LittleFS.open(path, "w"); // Open the file for writing in LittleFS (create
                                 // if it doesn't exist)
     path = String();
   } else if (upload.status == UPLOAD_FILE_WRITE) {
@@ -487,7 +485,7 @@ void onWsEvent(uint8_t num, WStype_t type, uint8_t *payload, size_t length) {
 }
 
 int save_file(String name, String text) {
-  File file = SPIFFS.open(name, "w");
+  File file = LittleFS.open(name, "w");
 
   if (!file) {
     Serial.println("Error opening file for writing");
