@@ -1,21 +1,14 @@
 /*
 GNU GENERAL PUBLIC LICENSE
-
 Version 2, June 1991
-
 Copyright (C) 1989, 1991 Free Software Foundation, Inc.  
 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
-
 Everyone is permitted to copy and distribute verbatim copies
 of this license document, but changing it is not allowed.
-
 */
-#pragma once
 
 #include "SoftwareSerial.h" //https://github.com/plerup/espsoftwareserial
 #include "toshiba_serial.h"
-#include "config.h"
-
 
 #define DEBUG 1
 
@@ -48,7 +41,8 @@ uint8_t XORChecksum8(const byte *data, size_t len)
 
 int check_crc(const byte *data, size_t len) {
   uint8_t crc = 1, my_crc = 2;
-  uint16_t packet_len;
+  int packet_len;
+  int k;
 
   if (len > 4) { //minimal packet len
     //byte count is byte 3
@@ -57,7 +51,6 @@ int check_crc(const byte *data, size_t len) {
       crc    = data[packet_len - 1]; //CRC is last byte
       my_crc = XORChecksum8(data, packet_len - 1); //CRC does not include own CRC
 #if 0//def DEBUG
-  int k;
       Serial.println("");
       Serial.print("CRC ");
       for (k = 0; k < packet_len; k++) {
@@ -139,7 +132,7 @@ void air_set_save_on(air_status_t *air) {
 void air_set_temp(air_status_t *air, uint8_t target_temp)  {
   //       byte    00    01    02    03    04    05    06    07    08    09    10    11    CRC
   byte data[] = {0x40, 0x00, 0x11, 0x08, 0x08, 0x4C, 0x0C, 0x1D, 0x7A, 0x00, 0x33, 0x33, 0x76};
-  // byte heat, cold, temp, mode, fan;
+  byte heat, cold, temp, mode, fan;
 
   //set mode   0C is byte for dry 1100  -> 100, 0A is cool 1010 ->  10
   data[6] = air->mode | 0b1000;
@@ -229,7 +222,6 @@ void air_set_timer(air_status_t *air, uint8_t timer_mode, uint8_t timer_value)  
 /*
   air_parse_serial
   air_decode_command
-
 */
 
 void init_air_serial(air_status_t *air) {
@@ -270,8 +262,6 @@ void air_decode_command(byte * data, air_status_t *s) {
              |        |-bit7.bit5 (mode cool:010 fan:011 auto 101 heat:001 dry: 100)
              |        |-bit0 ON:1 OFF:0
              |-Byte count
-
-
     Extended status
     0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19
     00 FE 58 0F 80 81 8D A8 00 00 7A 84 E9 00 33 33 01 00 01 9B
@@ -438,13 +428,11 @@ void air_decode_command(byte * data, air_status_t *s) {
 //calls decode command to fill air structure
 //returns true if one or command commands are decoded, false otherwise
 int air_parse_serial(air_status_t *air) {
-  // int i, j_init, j_end, k;
-  int i, j_init, k;
+  int i, j_init, j_end, k;
   uint8_t mylen = 0;
   byte ch;
   byte cmd[MAX_CMD_BUFFER];
-  int i_start, segment_len;
-  // int i_start, i_end, segment_len;
+  int i_start, i_end, segment_len;
   bool found = false;
   bool rbuffer = false;
   int retval = false;
@@ -502,6 +490,7 @@ int air_parse_serial(air_status_t *air) {
 #endif
       }
 
+
       //if valid crc, decode data
       if (check_crc(cmd, segment_len)) {
         mylen = cmd[3] + 5;
@@ -523,10 +512,9 @@ int air_parse_serial(air_status_t *air) {
           //air_print_status(air);
           //}
         }
-        
         i_start = (j_init + segment_len) % MAX_RX_BUFFER;
         j_init = (i_start - 1 + MAX_RX_BUFFER) % MAX_RX_BUFFER;
-        
+        j_end = j_init;
         found = true;
       } //end if crc
     } //end if segment_len
@@ -860,7 +848,7 @@ void air_query_sensors(air_status_t *air)  {
     //OUTDOOR_LOWER_FAN_SPEED, OUTDOOR_UPPER_FAN_SPEED
   };
 
-  uint16_t i = 0;
+  int i = 0;
   for (i = 0; i < sizeof(ids); i++) {
     air_query_sensor(air, ids[i]);
   }
@@ -881,6 +869,7 @@ void air_explore_all_sensors(air_status_t *air)  {
 
 
 void air_send_test_data(air_status_t *air) {
+  int i;
 
   SoftwareSerial *ss;
   ss = &(air->serial);
@@ -948,7 +937,7 @@ void air_send_test_data(air_status_t *air) {
   Serial.print(sizeof(testdata));
   Serial.println(")");
 
-  for (uint16_t i = 0; i < sizeof(testdata); i++) {
+  for (i = 0; i < sizeof(testdata); i++) {
     ss->write(testdata[i]);
     //    Serial.print(testdata[i] < 0x10 ? " 0" : " ");
     //    Serial.print(testdata[i], HEX);
@@ -962,6 +951,7 @@ void air_send_test_data(air_status_t *air) {
 
 
 void air_send_test_data_partial(air_status_t *air) {
+  int i;
 
   SoftwareSerial *ss;
   ss = &(air->serial);
@@ -981,7 +971,7 @@ void air_send_test_data_partial(air_status_t *air) {
   Serial.print(sizeof(testdata));
   Serial.println(")");
 
-  for (uint16_t i = 0; i < sizeof(testdata); i++) {
+  for (i = 0; i < sizeof(testdata); i++) {
     ss->write(testdata[i]);
     //    Serial.print(testdata[i] < 0x10 ? " 0" : " ");
     //    Serial.print(testdata[i], HEX);
@@ -993,6 +983,7 @@ void air_send_test_data_partial(air_status_t *air) {
 }
 
 void air_send_test_data_partial2(air_status_t *air) {
+  int i;
 
   SoftwareSerial *ss;
   ss = &(air->serial);
@@ -1008,7 +999,7 @@ void air_send_test_data_partial2(air_status_t *air) {
   Serial.print(sizeof(testdata));
   Serial.println(")");
 
-  for (uint16_t i = 0; i < sizeof(testdata); i++) {
+  for (i = 0; i < sizeof(testdata); i++) {
     ss->write(testdata[i]);
     //    Serial.print(testdata[i] < 0x10 ? " 0" : " ");
     //    Serial.print(testdata[i], HEX);
