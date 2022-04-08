@@ -1,10 +1,6 @@
 #include "config.h"
 
-
-
 //#include <GDBStub.h>
-
-
 
 air_status_t air_status;
 MySimpleTimer timerAC;
@@ -51,7 +47,7 @@ void startServer();
 void startReadSerial(); // Start timer for serial readings (1s)
 void handleTimer();
 void handleTemperature();
-void handleSaveFile();
+// void handleSaveFile();
 void getTemperatureCurrent();
 void handleStatus();
 void handleReadSerial();
@@ -149,8 +145,8 @@ void startTemperature() {
 }
 
 void startStatus() {
-  timerStatus.setUnit(kTimerUnit);    // 1000ms
-  timerStatus.setInterval(120); // update every XX s
+  timerStatus.setUnit(kTimerUnit); // 1000ms
+  timerStatus.setInterval(120);    // update every XX s
   timerStatus.repeat();
   timerStatus.start();
 
@@ -165,12 +161,12 @@ void startReadSerial() {
 }
 
 // save status every hour
-void startSaveFile() {
-  timerSaveFile.setUnit(kTimerUnit);
-  timerSaveFile.setInterval(60);
-  timerSaveFile.repeat();
-  timerSaveFile.start();
-}
+// void startSaveFile() {
+//   timerSaveFile.setUnit(kTimerUnit);
+//   timerSaveFile.setInterval(60);
+//   timerSaveFile.repeat();
+//   timerSaveFile.start();
+// }
 
 // check power each minute
 // void startCheckPowerConsumption() {
@@ -216,7 +212,7 @@ void handleTemperature() {
   if (timerTemperature.isTime()) {
     Serial.printf("[TEMP] Reading sensors\n");
     // Reading temperature or humidity takes about 250 milliseconds!
-    
+
     auto bmp_d = readBPMSensor();
     bmp_t[temp_idx] = bmp_d.temperature;
     bmp_p[temp_idx] = bmp_d.pressure;
@@ -256,12 +252,14 @@ void getTemperatureCurrent() {
   auto dht_d = readDHTSensor();
   dht_t_current = dht_d.temperature;
   dht_h_current = dht_d.humidity;
-  Serial.printf("[DHT] temp %.1f hum %.1f\n", dht_d.temperature, dht_d.humidity);
+  Serial.printf("[DHT] temp %.1f hum %.1f\n", dht_d.temperature,
+                dht_d.humidity);
 
   auto bmp_d = readBPMSensor();
   bmp_t_current = bmp_d.temperature;
   bmp_p_current = bmp_d.pressure;
-  Serial.printf("[BMP] temp %.1f press %.1f\n", bmp_d.temperature, bmp_d.pressure);
+  Serial.printf("[BMP] temp %.1f press %.1f\n", bmp_d.temperature,
+                bmp_d.pressure);
 }
 
 // get current status, temperature and sensors. not intended for logging
@@ -363,8 +361,8 @@ void handleNotFound() { // if the requested file or page doesn't exist, return a
   }
 }
 
-bool handleFileRead(
-    String path) { // send the right file to the client (if it exists)
+/** send the right file to the client (if it exists) */
+bool handleFileRead(String path) {
   bool ret;
 
   Serial.println("handleFileRead: " + path);
@@ -404,8 +402,10 @@ void handleFileUpload() { // upload a new file to the SPIFFS
     path = upload.filename;
     if (!path.startsWith("/"))
       path = "/" + path;
-    if (!path.endsWith(".gz")) { // The file server always prefers a compressed
-                                 // version of a file
+      /** The file server always prefers a compressed 
+       *  version of a file
+       *  */
+    if (!path.endsWith(".gz")) {
       String pathWithGz = path + ".gz"; // So if an uploaded file is not
                                         // compressed, the existing compressed
       if (SPIFFS.exists(pathWithGz)) // version of that file must be deleted (if
