@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include "helper.hpp"
 #include "LittleFS.h"
 #include "ntp_timer.hpp"
@@ -20,7 +21,7 @@
 #include <NTPClient.h> 
 #include <WiFiUdp.h>
 #include "toshiba_serial.hpp"
-#include "MySimpleTimer.hpp"
+#include "MySimpleTimer.cpp"
 #include "process_request.hpp"
 #include "config.h"
 

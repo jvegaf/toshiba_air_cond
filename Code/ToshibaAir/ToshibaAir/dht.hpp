@@ -1,7 +1,7 @@
 #pragma once
+#include <Arduino.h>
 #include "DHT.h"
 #include "config.h"
-#include <Arduino.h>
 #include "helper.hpp"
 
 

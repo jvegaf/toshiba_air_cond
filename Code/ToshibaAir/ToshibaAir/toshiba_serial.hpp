@@ -41,8 +41,7 @@ uint8_t XORChecksum8(const byte *data, size_t len)
 
 int check_crc(const byte *data, size_t len) {
   uint8_t crc = 1, my_crc = 2;
-  int packet_len;
-  int k;
+  unsigned int packet_len;
 
   if (len > 4) { //minimal packet len
     //byte count is byte 3
@@ -53,7 +52,8 @@ int check_crc(const byte *data, size_t len) {
 #if 0//def DEBUG
       Serial.println("");
       Serial.print("CRC ");
-      for (k = 0; k < packet_len; k++) {
+  
+      for (unsigned int k = 0; k < packet_len; k++) {
         Serial.print(data[k], HEX);
         Serial.print(" ");
       }
@@ -848,7 +848,7 @@ void air_query_sensors(air_status_t *air)  {
     //OUTDOOR_LOWER_FAN_SPEED, OUTDOOR_UPPER_FAN_SPEED
   };
 
-  int i = 0;
+  unsigned int i = 0;
   for (i = 0; i < sizeof(ids); i++) {
     air_query_sensor(air, ids[i]);
   }
@@ -869,7 +869,7 @@ void air_explore_all_sensors(air_status_t *air)  {
 
 
 void air_send_test_data(air_status_t *air) {
-  int i;
+  unsigned int i;
 
   SoftwareSerial *ss;
   ss = &(air->serial);
@@ -951,7 +951,7 @@ void air_send_test_data(air_status_t *air) {
 
 
 void air_send_test_data_partial(air_status_t *air) {
-  int i;
+  unsigned int i;
 
   SoftwareSerial *ss;
   ss = &(air->serial);
@@ -983,7 +983,7 @@ void air_send_test_data_partial(air_status_t *air) {
 }
 
 void air_send_test_data_partial2(air_status_t *air) {
-  int i;
+  unsigned int i;
 
   SoftwareSerial *ss;
   ss = &(air->serial);
