@@ -1729,7 +1729,7 @@
     (property "Value" "PN2222A" (id 1) (at 93.726 125.603 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "airpcb_smd:SOT-23_Reverse_Handsoldering" (id 2) (at 93.98 126.365 0)
+    (property "Footprint" "Package_TO_SOT_SMD:TSOT-23_HandSoldering" (id 2) (at 93.98 126.365 0)
       (effects (font (size 1.27 1.27) italic) (justify left) hide)
     )
     (property "Datasheet" "http://www.fairchildsemi.com/ds/PN/PN2222A.pdf" (id 3) (at 88.9 124.46 0)
@@ -1780,7 +1780,7 @@
     (property "Value" "PN2222A" (id 1) (at 56.896 117.983 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "airpcb_smd:SOT-23_Reverse_Handsoldering" (id 2) (at 57.15 118.745 0)
+    (property "Footprint" "Package_TO_SOT_SMD:TSOT-23_HandSoldering" (id 2) (at 57.15 118.745 0)
       (effects (font (size 1.27 1.27) italic) (justify left) hide)
     )
     (property "Datasheet" "http://www.fairchildsemi.com/ds/PN/PN2222A.pdf" (id 3) (at 52.07 116.84 0)
@@ -1838,7 +1838,7 @@
     (property "Value" "AB" (id 1) (at 151.765 44.5516 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical" (id 2) (at 149.733 42.037 0)
+    (property "Footprint" "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MPT-0,5-2-2.54_1x02_P2.54mm_Horizontal" (id 2) (at 149.733 42.037 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 149.733 42.037 0)
@@ -2451,7 +2451,7 @@
       (reference "J3") (unit 1) (value "DC") (footprint "Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical")
     )
     (path "/00000000-0000-0000-0000-00005f5e144a"
-      (reference "J4") (unit 1) (value "AB") (footprint "Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical")
+      (reference "J4") (unit 1) (value "AB") (footprint "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MPT-0,5-2-2.54_1x02_P2.54mm_Horizontal")
     )
     (path "/00000000-0000-0000-0000-00005f6377e8"
       (reference "J7") (unit 1) (value "PWR") (footprint "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical")
@@ -2466,10 +2466,10 @@
       (reference "J11") (unit 1) (value "PSU") (footprint "Connector_PinSocket_2.54mm:PinSocket_1x05_P2.54mm_Vertical")
     )
     (path "/00000000-0000-0000-0000-00005f584bbb"
-      (reference "Q1") (unit 1) (value "PN2222A") (footprint "airpcb_smd:SOT-23_Reverse_Handsoldering")
+      (reference "Q1") (unit 1) (value "PN2222A") (footprint "Package_TO_SOT_SMD:TSOT-23_HandSoldering")
     )
     (path "/00000000-0000-0000-0000-00005f571ed4"
-      (reference "Q2") (unit 1) (value "PN2222A") (footprint "airpcb_smd:SOT-23_Reverse_Handsoldering")
+      (reference "Q2") (unit 1) (value "PN2222A") (footprint "Package_TO_SOT_SMD:TSOT-23_HandSoldering")
     )
     (path "/00000000-0000-0000-0000-00005f5701ae"
       (reference "R1") (unit 1) (value "1k") (footprint "Resistor_SMD:R_0805_2012Metric")

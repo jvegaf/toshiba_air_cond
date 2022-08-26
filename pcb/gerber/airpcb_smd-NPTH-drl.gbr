@@ -1,0 +1,31 @@
+%TF.GenerationSoftware,KiCad,Pcbnew,(6.0.7)*%
+%TF.CreationDate,2022-08-26T02:08:32+02:00*%
+%TF.ProjectId,airpcb_smd,61697270-6362-45f7-936d-642e6b696361,rev?*%
+%TF.SameCoordinates,Original*%
+%TF.FileFunction,NonPlated,1,2,NPTH,Drill*%
+%TF.FilePolarity,Positive*%
+%FSLAX46Y46*%
+G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
+G04 Created by KiCad (PCBNEW (6.0.7)) date 2022-08-26 02:08:32*
+%MOMM*%
+%LPD*%
+G01*
+G04 APERTURE LIST*
+%TA.AperFunction,ComponentDrill*%
+%ADD10C,1.100000*%
+%TD*%
+%TA.AperFunction,ComponentDrill*%
+%ADD11C,3.000000*%
+%TD*%
+G04 APERTURE END LIST*
+D10*
+%TO.C,J4*%
+X127000000Y-121920000D03*
+X129540000Y-121920000D03*
+D11*
+%TO.C,U3*%
+X117935000Y-54940000D03*
+X117935000Y-101890000D03*
+X142445000Y-54940000D03*
+X142445000Y-101890000D03*
+M02*
