@@ -32,7 +32,7 @@ const int DHTPin = D3;
 
 #define RESET_MODE_PIN D4  //button to enter into wifi configuration
 
-static const uint16_t kTimerUnit = 1000;
+static const uint16_t ONE_SECOND = 1000;
 
 
 //  

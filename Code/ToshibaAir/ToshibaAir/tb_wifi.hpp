@@ -1,7 +1,11 @@
 #pragma once
 #include "config.h"
 #include <Arduino.h>
+#ifdef USE_ASYNC
+#include <Wifi.h>
+#else
 #include <ESP8266WiFi.h>
+#endif
 
 // for LED status
 #include <Ticker.h>
@@ -9,12 +13,10 @@
 #ifdef USE_ASYNC // for ESP32
 #include <ESPAsync_WiFiManager.h_>
 #else
-#include <ESP8266WiFiMulti.h>
 #include <WiFiManager.h>
 #endif
 
-
-namespace Wifi {
+namespace TBWifi {
 Ticker ticker;
 
 // toggle state
@@ -67,4 +69,4 @@ void initManager() {
   // keep LED off
   digitalWrite(LED, HIGH);
 }
-} // namespace Wifi
+} // namespace TBWifi

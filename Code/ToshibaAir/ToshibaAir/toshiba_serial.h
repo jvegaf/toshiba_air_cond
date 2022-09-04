@@ -6,6 +6,11 @@ Copyright (C) 1989, 1991 Free Software Foundation, Inc.
 Everyone is permitted to copy and distribute verbatim copies
 of this license document, but changing it is not allowed.
 */
+#pragma once
+
+#include <Arduino.h>
+#include <SoftwareSerial.h>
+
 
 #define MASTER  0x00
 #define REMOTE  0x40

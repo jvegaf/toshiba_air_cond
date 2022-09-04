@@ -1,7 +1,7 @@
 #include "helper.hpp"
 #include "LittleFS.h"
 #include "ntp_timer.hpp"
-#include "wifi.hpp"
+#include "tb_wifi.hpp"
 #include "ota.hpp"
 #include "sensors.hpp"
 
@@ -87,7 +87,7 @@ void setup() {
   Serial.println("\r\n");
   Serial.println("Air conditioning starts!");
 
-  Wifi::initManager(); // Use wifimanager to connect
+  TBWifi::initManager(); // Use wifimanager to connect
 
   // is_reset_button();
 
@@ -131,7 +131,7 @@ void loop() {
 }
 
 void startTemperature() {
-  timerTemperature.setUnit(kTimerUnit);
+  timerTemperature.setUnit(ONE_SECOND);
   timerTemperature.setInterval(temp_interval);
   timerTemperature.repeat();
   timerTemperature.start();
@@ -169,7 +169,7 @@ void startTemperature() {
 }
 
 void startStatus() {
-  timerStatus.setUnit(kTimerUnit); // 1000ms
+  timerStatus.setUnit(ONE_SECOND); // 1000ms
   timerStatus.setInterval(120);    // update every XX s
   timerStatus.repeat();
   timerStatus.start();
@@ -178,7 +178,7 @@ void startStatus() {
 }
 
 void startReadSerial() {
-  timerReadSerial.setUnit(kTimerUnit);
+  timerReadSerial.setUnit(ONE_SECOND);
   timerReadSerial.setInterval(1);
   timerReadSerial.repeat();
   timerReadSerial.start();
