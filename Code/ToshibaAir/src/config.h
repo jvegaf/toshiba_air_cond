@@ -7,7 +7,7 @@ static const uint8_t MAX_LOG_DATA = 72; //store up to 72 readings in a circular 
 // #define USE_BMP //if BMP sensor installed
 #define USE_DHT //in DHT sensor installed
 
-//#define USE_ASYNC
+#define USE_ASYNC
 
 //wifi credentials, no needed because now we use WiFiManager
 const char *w_ssid = "YOURWIFI";

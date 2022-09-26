@@ -1,9 +1,0 @@
-{
-  "files.associations": {
-    "Dockerfile-*": "dockerfile",
-    "*.h": "cpp",
-    "*.jsx": "javascriptreact",
-    "chrono": "cpp",
-    "mutex": "cpp"
-  }
-}

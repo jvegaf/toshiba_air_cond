@@ -1,3 +1,4 @@
+#include "config.h"
 #include "helper.hpp"
 #include "LittleFS.h"
 #include "ntp_timer.hpp"
