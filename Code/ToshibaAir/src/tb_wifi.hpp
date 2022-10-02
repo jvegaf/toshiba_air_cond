@@ -2,7 +2,7 @@
 #include "config.h"
 #include <Arduino.h>
 #ifdef USE_ASYNC
-#include <Wifi.h>
+#include <WiFi.h>
 #else
 #include <ESP8266WiFi.h>
 #endif

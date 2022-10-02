@@ -5,17 +5,6 @@
 #include "tb_wifi.hpp"
 #include "ota.hpp"
 #include "sensors.hpp"
-
-#ifdef USE_ASYNC //for ESP32
-  #include <ESPAsyncTCP.h_>
-  #include <ESPAsyncWebServer.h_>
-#else //use links2004 websocketserver
-  #include <ESP8266WebServer.h>
-  #include <WebSocketsServer.h>
-#endif
-
-
-#include <ESP8266mDNS.h>
 #include <FS.h>
 #include <ArduinoJson.h>
 #include <NTPClient.h> 
@@ -58,7 +47,6 @@ MySimpleTimer timerStatus;
 MySimpleTimer timerReadSerial;
 MySimpleTimer timerSaveFile;
 
-void configModeCallback(WiFiManager *myWiFiManager);
 void handleNotFound();
 bool handleFileRead(String path);
 void handleFileUpload();
